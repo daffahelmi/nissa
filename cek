@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Menggunakan tput untuk menambahkan warna
+GREEN=$(tput setaf 2)    # Hijau
+RED=$(tput setaf 1)      # Merah
+YELLOW=$(tput setaf 3)   # Kuning
+NC=$(tput sgr0)          # Tidak ada warna (reset)
+
+# Fungsi untuk memeriksa status Docker
+check_docker_status() {
+    local status=$(systemctl is-active docker)
+    if [ "$status" == "active" ]; then
+        echo -e "${GREEN}✔ Docker is running.${NC}"
+    else
+        echo -e "${RED}✘ Docker is not running.${NC}"
+    fi
+}
+
+# Fungsi untuk memeriksa status WireProxy (WARP)
+check_warp_status() {
+    local status=$(systemctl is-active wireproxy)
+    if [ "$status" == "active" ]; then
+        echo -e "${GREEN}✔ WireProxy (WARP) is active.${NC}"
+    else
+        echo -e "${RED}✘ WireProxy (WARP) is not active.${NC}"
+    fi
+}
+
+# Fungsi untuk memeriksa status fix.service
+check_fix_service_status() {
+    local status=$(systemctl is-active fix.service)
+    if [ "$status" == "active" ]; then
+        echo -e "${GREEN}✔ Fix node usage service is active.${NC}"
+    else
+        echo -e "${RED}✘ Fix node usage service is not active.${NC}"
+    fi
+}
+
+# Cek status Docker
+echo -e "${YELLOW}Checking Docker status...${NC}"
+check_docker_status
+
+# Cek status WireProxy (WARP)
+echo -e "${YELLOW}Checking WARP...${NC}"
+check_warp_status
+
+# Cek status Fix node usage service
+echo -e "${YELLOW}Checking Fix node usage...${NC}"
+check_fix_service_status

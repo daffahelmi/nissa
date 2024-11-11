@@ -1,0 +1,316 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "dns": {
+    "servers": [
+      "1.1.1.1",
+      "1.0.0.1",
+      "8.8.8.8",
+      "8.8.4.4"
+    ],
+    "tag": "DNS-Internal"
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "DNS-Internal"
+        ],
+        "network": "tcp,udp",
+        "outboundTag": "DNS-Internal"
+      },
+      {
+        "type": "field",
+        "port": 443,
+        "network": "udp",
+        "outboundTag": "BLOCK"
+      },
+      {
+        "type": "field",
+        "outboundTag": "BLOCK",
+        "protocol": [
+          "bittorrent"
+        ]
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "TROJAN_FALLBACK_INBOUND",
+      "port": 11000,
+      "protocol": "trojan",
+      "settings": {
+        "clients": [],
+        "decryption": "none",
+        "fallbacks": [
+          {
+            "path": "/vless",
+            "dest": "@vless-ws",
+            "xver": 2
+          },
+          {
+            "path": "/vless-hu",
+            "dest": "@vless-hu",
+            "xver": 2
+          },
+          {
+            "path": "/vmess",
+            "dest": "@vmess-ws",
+            "xver": 2
+          },
+          {
+            "path": "/trojan",
+            "dest": "@trojan-ws",
+            "xver": 2
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "SERVER_NAME",
+          "certificates": [
+            {
+              "ocspStapling": 3600,
+              "certificateFile": "/var/lib/marzban/certs/fullchain.pem",
+              "keyFile": "/var/lib/marzban/certs/key.pem"
+            }
+          ],
+          "minVersion": "1.2",
+          "cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+          "alpn": [
+            "http/1.1"
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "VLESS",
+      "listen": "@vless-ws",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/vless"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "VLESS HTTP",
+      "listen": "@vless-hu",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/vless-hu"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "VMESS",
+      "listen": "@vmess-ws",
+      "protocol": "vmess",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/vmess"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "TROJAN",
+      "listen": "@trojan-ws",
+      "protocol": "trojan",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/trojan"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "TROJAN FALLBACK nTLS",
+      "port": 80,
+      "protocol": "trojan",
+      "settings": {
+        "clients": [],
+        "decryption": "none",
+        "fallbacks": [
+          {
+            "path": "/vlessn",
+            "dest": "@vlessn-ws",
+            "xver": 2
+          },
+          {
+            "path": "/vmessn",
+            "dest": "@vmessn-ws",
+            "xver": 2
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none"
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    },
+    {
+      "tag": "VLESS nTLS",
+      "listen": "@vlessn-ws",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/vlessn"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "VMESS nTLS",
+      "listen": "@vmessn-ws",
+      "protocol": "vmess",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/vmessn"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "Shadowsocks TCP",
+      "listen": "0.0.0.0",
+      "port": 1080,
+      "protocol": "shadowsocks",
+      "settings": {
+        "clients": [],
+        "network": "tcp,udp"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "DIRECT"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "BLOCK"
+    },
+    {
+      "tag": "DNS-Internal",
+      "protocol": "dns",
+      "settings": {}
+    },
+    {
+      "tag": "WARP",
+      "protocol": "socks",
+      "settings": {
+        "servers": [
+          {
+            "address": "127.0.0.1",
+            "port": 40000
+          }
+        ]
+      }
+    }
+  ]
+}
