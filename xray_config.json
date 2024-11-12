@@ -19,6 +19,7 @@
         "inboundTag": [
           "DNS-Internal"
         ],
+        "port": 53,
         "network": "tcp,udp",
         "outboundTag": "DNS-Internal"
       },
@@ -40,7 +41,7 @@
   "inbounds": [
     {
       "tag": "TROJAN_FALLBACK_INBOUND",
-      "port": 11000,
+      "port": 443,
       "protocol": "trojan",
       "settings": {
         "clients": [],
