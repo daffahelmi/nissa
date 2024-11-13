@@ -1,5 +1,5 @@
 ```bash
-apt-get install wget curl sudo -y
+apt update && apt upgrade -y && apt-get install wget curl sudo -y
 ```
 
 ```bash
