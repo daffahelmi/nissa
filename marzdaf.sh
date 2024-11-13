@@ -76,6 +76,9 @@ wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daff
 # Download .env
 wget -O /opt/marzban/.env https://raw.githubusercontent.com/daffahelmi/marzdaf/main/env
 
+# Download Subscription
+sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/daffahelmi/marzdaf/refs/heads/main/index.html
+
 # Fix Marzban error log
 wget -O /usr/local/bin/fixmarzban https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fixnodeusage && \
 wget -O /etc/systemd/system/fix.service https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fix.service && \
