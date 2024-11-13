@@ -6,13 +6,24 @@ RED=$(tput setaf 1)      # Merah
 YELLOW=$(tput setaf 3)   # Kuning
 NC=$(tput sgr0)          # Tidak ada warna (reset)
 
-# Fungsi untuk memeriksa status Docker
-check_docker_status() {
-    local status=$(systemctl is-active docker)
-    if [ "$status" == "active" ]; then
-        echo -e "${GREEN}✔ Docker is running.${NC}"
+# Fungsi untuk mencetak garis pemisah
+print_line() {
+    echo -e "${YELLOW}========================================${NC}"
+}
+
+# Judul
+print_line
+echo -e "${YELLOW}           Service Status               ${NC}"
+print_line
+
+# Fungsi untuk memeriksa status container Docker Marzban
+check_container_status() {
+    local container_name="marzban-marzban-1"
+    local status=$(docker inspect -f '{{.State.Running}}' "$container_name" 2>/dev/null)
+    if [ "$status" == "true" ]; then
+        echo -e "${GREEN}✔ Marzban is running.${NC}"
     else
-        echo -e "${RED}✘ Docker is not running.${NC}"
+        echo -e "${RED}✘ Marzban is not running.${NC}"
     fi
 }
 
@@ -36,14 +47,14 @@ check_fix_service_status() {
     fi
 }
 
-# Cek status Docker
-echo -e "${YELLOW}Checking Docker status...${NC}"
-check_docker_status
+# Cek status container Docker Marzban
+check_container_status
 
 # Cek status WireProxy (WARP)
-echo -e "${YELLOW}Checking WARP...${NC}"
 check_warp_status
 
 # Cek status Fix node usage service
-echo -e "${YELLOW}Checking Fix node usage...${NC}"
 check_fix_service_status
+
+# Garis bawah
+print_line
