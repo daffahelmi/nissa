@@ -41,9 +41,9 @@ check_warp_status() {
 check_fix_service_status() {
     local status=$(systemctl is-active fix.service)
     if [ "$status" == "active" ]; then
-        echo -e "${GREEN}✔ Fix node usage service is active.${NC}"
+        echo -e "${GREEN}✔ Fix node usage is active.${NC}"
     else
-        echo -e "${RED}✘ Fix node usage service is not active.${NC}"
+        echo -e "${RED}✘ Fix node usage is not active.${NC}"
     fi
 }
 
