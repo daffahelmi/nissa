@@ -74,7 +74,7 @@ wget -O /var/lib/marzban/db.sqlite3 https://raw.githubusercontent.com/daffahelmi
 wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/marzdaf/main/xray_config.json
 
 # Download .env
-wget -O /opt/marzban/.env https://raw.githubusercontent.com/daffahelmi/marzdaf/main/.env
+wget -O /opt/marzban/.env https://raw.githubusercontent.com/daffahelmi/marzdaf/main/env
 
 # Fix Marzban error log
 wget -O /usr/local/bin/fixmarzban https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fixnodeusage && \
