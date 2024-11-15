@@ -1,0 +1,10 @@
+[Unit]
+Description=Marzban Log Monitoring Script
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/fixmarzban
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
