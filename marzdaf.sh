@@ -1,6 +1,10 @@
 #!/bin/bash
 sfile="https://github.com/daffahelmi/marzdaf/blob/main"
 
+# Install wget, curl, and sudo if not already installed
+apt-get update
+apt-get install -y wget curl sudo
+
 # Input domain
 read -rp "Masukkan Domain: " domain
 echo "$domain" > /root/domain
@@ -10,6 +14,7 @@ domain=$(cat /root/domain)
 clear
 cd;
 apt-get update;
+apt-get upgrade -y;
 
 # Remove unused Modules
 apt-get -y --purge remove samba* apache2* sendmail* bind9*;
