@@ -87,6 +87,14 @@ wget -O /opt/marzban/.env https://raw.githubusercontent.com/daffahelmi/marzdaf/m
 # Download Subscription
 sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/daffahelmi/marzdaf/refs/heads/main/index.html
 
+# Install Xray-Core Latest
+apt install -y wget unzip && \
+mkdir -p /var/lib/marzban/xray-core && \
+cd /var/lib/marzban/xray-core && \
+wget https://github.com/XTLS/xray-core/releases/latest/download/Xray-linux-64.zip && \
+unzip Xray-linux-64.zip && \
+rm Xray-linux-64.zip
+
 # Download Geositemod
 wget -O /root/geositemod https://raw.githubusercontent.com/daffahelmi/marzdaf/main/geositemod && chmod +x /root/geositemod && /root/geositemod && rm -f /root/geositemod
 
