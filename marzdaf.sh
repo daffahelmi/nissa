@@ -6,7 +6,7 @@ wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/marzdaf/main/r
 
 # Install wget, curl, and sudo if not already installed
 apt-get update
-apt-get install -y wget curl sudo
+apt-get install -y curl sudo
 
 # Input domain
 read -rp "Masukkan Domain: " domain
