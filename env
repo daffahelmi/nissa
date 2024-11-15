@@ -17,7 +17,7 @@ UVICORN_SSL_KEYFILE = "/var/lib/marzban/certs/key.pem"
 XRAY_JSON = "/var/lib/marzban/xray_config.json"
 # XRAY_SUBSCRIPTION_URL_PREFIX = "https://DOMAIN:12"
 # XRAY_SUBSCRIPTION_PATH = "sub"
-# XRAY_EXECUTABLE_PATH = "/usr/local/bin/xray"
+XRAY_EXECUTABLE_PATH = "/var/lib/marzban/xray-core/xray"
 XRAY_ASSETS_PATH = "/var/lib/marzban/assets"
 # XRAY_EXCLUDE_INBOUND_TAGS = "INBOUND_X INBOUND_Y"
 XRAY_FALLBACKS_INBOUND_TAG = "TROJAN_FALLBACK_INBOUND"
@@ -59,7 +59,7 @@ SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"
 ## External config to import into v2ray format subscription
 # EXTERNAL_CONFIG = "config://..."
 
-# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://daffa:nissa@127.0.0.1:3306/marzban"
+# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://user:pw@127.0.0.1:3306/marzban"
 SQLALCHEMY_DATABASE_URL = "sqlite:////var/lib/marzban/db.sqlite3"
 # SQLALCHEMY_POOL_SIZE = 10
 # SQLIALCHEMY_MAX_OVERFLOW = 30
