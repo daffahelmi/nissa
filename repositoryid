@@ -1,0 +1,5 @@
+deb http://kartolo.sby.datautama.net.id/debian/ bookworm contrib main non-free >
+deb http://kartolo.sby.datautama.net.id/debian/ bookworm-updates contrib main n>
+deb http://kartolo.sby.datautama.net.id/debian/ bookworm-proposed-updates contr>
+deb http://kartolo.sby.datautama.net.id/debian/ bookworm-backports contrib main>
+deb http://kartolo.sby.datautama.net.id/debian-security/ bookworm-security cont>
