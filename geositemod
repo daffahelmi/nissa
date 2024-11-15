@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Mendapatkan URL GeoSite.dat dari latest release
+geosite_url=$(curl -s https://api.github.com/repos/rfxcll/v2ray-rules-dat/releases/latest | jq -r '.assets[] | select(.name=="GeoSite.dat") | .browser_download_url')
+
+# Jika URL ditemukan, unduh file GeoSite.dat
+if [ -n "$geosite_url" ]; then
+    echo "Mengunduh GeoSite.dat..."
+    wget -O /var/lib/marzban/assets/geosite.dat "$geosite_url"
+    echo "Download selesai: /var/lib/marzban/assets/geosite.dat"
+else
+    echo "GeoSite.dat tidak ditemukan dalam release terbaru"
+fi
