@@ -91,7 +91,11 @@ sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubuser
 wget -O /root/geositemod https://raw.githubusercontent.com/daffahelmi/marzdaf/main/geositemod && chmod +x /root/geositemod && /root/geositemod && rm -f /root/geositemod
 
 # Fix Marzban error log
-wget -O /root/fixmarzban https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fixmarzban && chmod +x /root/fixmarzban && /root/fixmarzban && rm -f /root/fixmarzban
+wget -O /usr/local/bin/fixmarzban https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fixnodeusage && \
+wget -O /etc/systemd/system/fix.service https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fix.service && \
+chmod +x /usr/local/bin/fixmarzban && \
+systemctl enable fix.service && \
+systemctl start fix.service
 
 # Install cek service
 wget -O /root/.bash_profile https://raw.githubusercontent.com/daffahelmi/marzdaf/main/profile && \
