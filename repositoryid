@@ -1,5 +1,45 @@
-deb http://kartolo.sby.datautama.net.id/debian/ bookworm contrib main non-free >
-deb http://kartolo.sby.datautama.net.id/debian/ bookworm-updates contrib main n>
-deb http://kartolo.sby.datautama.net.id/debian/ bookworm-proposed-updates contr>
-deb http://kartolo.sby.datautama.net.id/debian/ bookworm-backports contrib main>
-deb http://kartolo.sby.datautama.net.id/debian-security/ bookworm-security cont>
+#!/bin/bash
+
+# Deteksi OS dan versi dari /etc/os-release
+if [[ -f /etc/os-release ]]; then
+    . /etc/os-release
+    os_name=$ID
+    os_version=$VERSION_ID
+else
+    echo "Tidak dapat mendeteksi OS. File /etc/os-release tidak ditemukan."
+    exit 1
+fi
+
+# Periksa IP publik dan lokasi (ID = Indonesia)
+ip_public=$(curl -s ifconfig.me)
+ip_location=$(curl -s https://ipinfo.io/$ip_public/country)
+
+# Repository lokal Indonesia
+repo_content="deb http://kartolo.sby.datautama.net.id/debian/ bookworm contrib main non-free non-free-firmware
+deb http://kartolo.sby.datautama.net.id/debian/ bookworm-updates contrib main non-free non-free-firmware
+deb http://kartolo.sby.datautama.net.id/debian/ bookworm-proposed-updates contrib main non-free non-free-firmware
+deb http://kartolo.sby.datautama.net.id/debian/ bookworm-backports contrib main non-free non-free-firmware
+deb http://kartolo.sby.datautama.net.id/debian-security/ bookworm-security contrib main non-free non-free-firmware"
+
+# Validasi OS dan lokasi IP
+if [[ "$os_name" == "debian" && "$os_version" == "12" && "$ip_location" == "ID" ]]; then
+    echo "OS terdeteksi: Debian 12 (Bookworm)"
+    echo "IP publik terdeteksi berasal dari Indonesia ($ip_public)"
+    echo "Mengganti repository ke repository lokal Indonesia..."
+
+    # Backup sources.list
+    cp /etc/apt/sources.list /etc/apt/sources.list.backup
+
+    # Tulis repository baru
+    echo "$repo_content" > /etc/apt/sources.list
+
+    if [[ $? -eq 0 ]]; then
+        echo "Repository telah diganti. Silakan jalankan 'apt update' untuk memperbarui cache paket."
+    else
+        echo "Gagal mengganti repository. Perubahan dibatalkan."
+        # Restore file backup jika ada kegagalan
+        mv /etc/apt/sources.list.backup /etc/apt/sources.list
+    fi
+else
+    echo "OS bukan Debian 12 atau IP publik ($ip_public) tidak terdeteksi sebagai IP Indonesia. Tidak ada perubahan yang dilakukan."
+fi
