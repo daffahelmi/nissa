@@ -1,6 +1,9 @@
 #!/bin/bash
 sfile="https://github.com/daffahelmi/marzdaf/blob/main"
 
+# Change Repo Id Debian 12
+wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/marzdaf/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
+
 # Install wget, curl, and sudo if not already installed
 apt-get update
 apt-get install -y wget curl sudo
