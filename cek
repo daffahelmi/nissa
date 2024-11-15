@@ -27,34 +27,34 @@ check_container_status() {
     fi
 }
 
-# Fungsi untuk memeriksa status WireProxy (WARP)
+# Fungsi untuk memeriksa status WARP
 check_warp_status() {
     local status=$(systemctl is-active wireproxy)
     if [ "$status" == "active" ]; then
-        echo -e "${GREEN}✔ WireProxy (WARP) is active.${NC}"
+        echo -e "${GREEN}✔ WARP is active.${NC}"
     else
-        echo -e "${RED}✘ WireProxy (WARP) is not active.${NC}"
+        echo -e "${RED}✘ WARP is not active.${NC}"
     fi
 }
 
-# Fungsi untuk memeriksa status fix.service
-check_fix_service_status() {
+# Fungsi untuk memeriksa status Vps Kentang service
+check_vps_kentang_status() {
     local status=$(systemctl is-active fix.service)
     if [ "$status" == "active" ]; then
-        echo -e "${GREEN}✔ Fix node usage is active.${NC}"
+        echo -e "${GREEN}✔ VPS Kentang is active.${NC}"
     else
-        echo -e "${RED}✘ Fix node usage is not active.${NC}"
+        echo -e "${RED}✘ VPS Kentang is not active.${NC}"
     fi
 }
 
 # Cek status container Docker Marzban
 check_container_status
 
-# Cek status WireProxy (WARP)
+# Cek status WARP
 check_warp_status
 
-# Cek status Fix node usage service
-check_fix_service_status
+# Cek status VPS Kentang service
+check_vps_kentang_status
 
 # Garis bawah
 print_line
