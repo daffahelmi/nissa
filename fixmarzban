@@ -7,10 +7,14 @@ SERVICE_PATH="/etc/systemd/system/fixmarzban.service"
 # 1. Menyimpan script bash
 echo "Menyimpan script bash..."
 cat > $SCRIPT_PATH << 'EOF'
-
-#!/bin/bash
-
 container_name="marzban-marzban-1"  # Nama container Marzban
+
+# Mengecek apakah perintah docker ada di path
+if ! command -v docker &> /dev/null
+then
+    echo "Docker tidak ditemukan, pastikan Docker terinstal."
+    exit 1
+fi
 
 while true; do
     if docker logs "$container_name" --tail 5 2>&1 | grep -q "maximum number of running instances reached"; then
