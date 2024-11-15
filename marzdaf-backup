@@ -35,7 +35,7 @@ cat <<EOF > $BACKUP_SCRIPT
 rm -rf /root/marzban-backup.zip
 
 # Buat file ZIP tanpa menyertakan folder /var/lib/marzban/assets dan /var/lib/marzban/xray-core
-zip -r /root/marzban-backup.zip /opt/marzban/* /var/lib/marzban/* /opt/marzban/.env --exclude "/var/lib/marzban/assets/*" "/var/lib/marzban/xray-core/*"
+zip -r /root/marzban-backup.zip /opt/marzban/* /var/lib/marzban/* /opt/marzban/.env --exclude "/var/lib/marzban/assets/*" "/var/lib/marzban/xray-core/*" "/var/lib/marzban/certs/*"
 
 # Tambahkan catatan ke dalam file ZIP
 echo -e "$BACKUP_DESCRIPTION\n$PUBLIC_IP\nModified by @daffahelmis" | zip -z /root/marzban-backup.zip
