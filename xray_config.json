@@ -16,9 +16,6 @@
     "rules": [
       {
         "type": "field",
-        "inboundTag": [
-          "DNS-Internal"
-        ],
         "port": 53,
         "network": "tcp,udp",
         "outboundTag": "DNS-Internal"
@@ -27,6 +24,14 @@
         "type": "field",
         "port": 443,
         "network": "udp",
+        "outboundTag": "BLOCK"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:rule-ads"
+        ],
+        "network": "tcp,udp",
         "outboundTag": "BLOCK"
       },
       {
