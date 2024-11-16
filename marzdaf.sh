@@ -17,11 +17,10 @@ apt-get install curl sudo net-tools lnav haveged htop vnstat gpg neofetch jq -y
 # Preparation
 clear
 cd;
-apt-get update;
 apt-get upgrade -y;
 
 # Remove unused Modules
-apt-get -y --purge remove samba* apache2* sendmail* bind9*;
+apt-get purge -y samba* apache2* sendmail* bind9*
 
 # Install BBR
 echo 'fs.file-max = 500000
@@ -66,8 +65,7 @@ curl https://get.acme.sh | sh && \
 systemctl start docker
 
 # cronjob setup
-(crontab -l ; echo "0 */6 * * * sync; echo 3 > /proc/sys/vm/drop_caches") | crontab - 
-(crontab -l ; echo "0 0 * * * systemctl restart wireproxy") | crontab -
+(crontab -l 2>/dev/null; echo "0 */6 * * * sync; echo 3 > /proc/sys/vm/drop_caches"; echo "0 */3 * * * systemctl restart wireproxy") | crontab -
 
 # Swap RAM 1GB
 wget https://raw.githubusercontent.com/Cretezy/Swap/master/swap.sh -O swap && sh swap 1G && rm swap
@@ -111,9 +109,7 @@ chmod +x /usr/bin/cek
 bash <(curl -sSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh) -y
 
 # Finalizing
-apt autoremove -y && apt clean && \
-systemctl restart docker && \
-cd /opt/marzban && \
-docker compose down && docker compose up -d && \
-cd && \
-rm /root/marzdaf.sh
+apt autoremove -y && apt clean
+systemctl restart docker
+cd /opt/marzban && docker compose down && docker compose up -d
+rm -f /root/marzdaf.sh
