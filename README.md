@@ -6,7 +6,7 @@ Buat admin login
 ```bash
 marzban cli admin create --sudo
 ```
-Command backup-marzdaf
+Backup-marzdaf
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/daffahelmi/marzdaf/main/marzdaf-backup)
 ```
