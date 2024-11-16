@@ -7,7 +7,7 @@ wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/marzdaf/main/r
 # Install toolkit
 apt-get update
 timedatectl set-timezone Asia/Jakarta && \
-apt-get install curl sudo net-tools lnav haveged htop vnstat gpg neofetch -y
+apt-get install curl sudo net-tools lnav haveged htop vnstat gpg neofetch jq -y
 
 # Input domain
 read -rp "Masukkan Domain: " domain
