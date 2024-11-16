@@ -4,9 +4,10 @@ sfile="https://github.com/daffahelmi/marzdaf/blob/main"
 # Change Repo Id Debian 12
 wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/marzdaf/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
 
-# Install wget, curl, and sudo if not already installed
+# Install toolkit
 apt-get update
-apt-get install -y curl sudo
+timedatectl set-timezone Asia/Jakarta && \
+apt-get install curl sudo net-tools lnav haveged htop vnstat gpg neofetch -y
 
 # Input domain
 read -rp "Masukkan Domain: " domain
@@ -48,10 +49,6 @@ net.ipv6.conf.all.disable_ipv6=1
 net.ipv6.conf.default.disable_ipv6=1
 net.ipv6.conf.lo.disable_ipv6=1' >> /etc/sysctl.conf
 sysctl -p;
-
-# Install toolkit
-timedatectl set-timezone Asia/Jakarta && \
-apt-get install net-tools lnav haveged htop vnstat gpg neofetch -y
 
 # Install Marzban
 sudo bash -c "$(curl -sL https://github.com/daffahelmi/Marzban-scripts/raw/master/marzban.sh)" @ install
