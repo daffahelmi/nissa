@@ -5,9 +5,20 @@ geosite_url=$(curl -s https://api.github.com/repos/rfxcll/v2ray-rules-dat/releas
 
 # Jika URL ditemukan, unduh file GeoSite.dat
 if [ -n "$geosite_url" ]; then
+    echo "Mengecek apakah direktori tujuan ada..."
+    
+    # Membuat direktori jika belum ada
+    mkdir -p /var/lib/marzban/assets
+
     echo "Mengunduh GeoSite.dat..."
     wget -O /var/lib/marzban/assets/geosite.dat "$geosite_url"
-    echo "Download selesai: /var/lib/marzban/assets/geosite.dat"
+    
+    # Memeriksa apakah pengunduhan berhasil
+    if [ $? -eq 0 ]; then
+        echo "Download selesai: /var/lib/marzban/assets/geosite.dat"
+    else
+        echo "Terjadi kesalahan saat mengunduh file."
+    fi
 else
     echo "GeoSite.dat tidak ditemukan dalam release terbaru"
 fi
