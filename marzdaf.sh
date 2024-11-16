@@ -4,15 +4,15 @@ sfile="https://github.com/daffahelmi/marzdaf/blob/main"
 # Change Repo Id Debian 12
 wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/marzdaf/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
 
+# Input domain
+read -rp "Masukkan Domain: " domain
+echo "$domain" > /root/domain
+domain=$(cat /root/domain) 
+
 # Install toolkit
 apt-get update
 timedatectl set-timezone Asia/Jakarta && \
 apt-get install curl sudo net-tools lnav haveged htop vnstat gpg neofetch jq -y
-
-# Input domain
-read -rp "Masukkan Domain: " domain
-echo "$domain" > /root/domain
-domain=$(cat /root/domain)
 
 # Preparation
 clear
