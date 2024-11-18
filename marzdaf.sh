@@ -12,7 +12,7 @@ domain=$(cat /root/domain)
 # Install toolkit
 apt-get update
 timedatectl set-timezone Asia/Jakarta && \
-apt-get install curl sudo net-tools lnav haveged htop vnstat gpg neofetch jq -y
+apt-get install net-tools lnav haveged htop vnstat gpg neofetch jq -y
 
 # Preparation
 clear
