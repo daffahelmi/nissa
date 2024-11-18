@@ -3,6 +3,7 @@
 # Deteksi IP publik
 PUBLIC_IP=$(curl -s ifconfig.me)
 
+
 # Cek dan instal `zip` jika tidak ada
 if ! command -v zip &> /dev/null; then
   echo "zip tidak ditemukan. Menginstal zip..."
@@ -16,9 +17,11 @@ if ! command -v zip &> /dev/null; then
   fi
 fi
 
+
 # Prompt untuk input Chat ID dan Bot Token
 read -p "Enter your Telegram Chat ID: " CHAT_ID
 read -p "Enter your Telegram Bot Token: " BOT_TOKEN
+
 
 # Verifikasi Bot Token dan Chat ID dengan memeriksa API
 TEST_RESULT=$(curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getMe")
@@ -30,11 +33,13 @@ else
   exit 1
 fi
 
+
 # Prompt untuk input deskripsi custom backup
 read -p "Enter a custom description for this backup (leave blank for default): " BACKUP_DESCRIPTION
 if [ -z "$BACKUP_DESCRIPTION" ]; then
   BACKUP_DESCRIPTION="marzban backup"
 fi
+
 
 # Buat skrip backup
 BACKUP_SCRIPT="/usr/local/bin/marzban-backup"
@@ -58,11 +63,14 @@ curl -F chat_id="$CHAT_ID" \\
      https://api.telegram.org/bot$BOT_TOKEN/sendDocument
 EOF
 
+
 # Beri izin eksekusi
 chmod +x $BACKUP_SCRIPT
 
+
 # Periksa dan hapus cron job lama
 crontab -l 2>/dev/null | grep -v "marzban-backup" | crontab -
+
 
 # Tambahkan menu untuk cron job
 echo "Pilih interval untuk menjalankan backup otomatis:"
@@ -71,6 +79,7 @@ echo "2. 12 jam sekali"
 echo "3. 6 jam sekali"
 echo "4. Tidak menambahkan cron job"
 read -p "Masukkan pilihan Anda (1-4): " cron_choice
+
 
 CRON_JOB=""
 case $cron_choice in
@@ -91,10 +100,12 @@ case $cron_choice in
     ;;
 esac
 
+
 # Tambahkan cron job baru jika dipilih
 if [[ ! -z "$CRON_JOB" ]]; then
   (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
   echo "Cron job baru berhasil ditambahkan."
 fi
+
 
 echo "Installer selesai. Anda dapat menjalankan backup manual dengan perintah 'marzban-backup'."
