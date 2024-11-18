@@ -37,13 +37,13 @@ check_warp_status() {
     fi
 }
 
-# Fungsi untuk memeriksa status Vps Kentang service
-check_vps_kentang_status() {
+# Fungsi untuk memeriksa status Fix Instances service
+check_fix_instances_status() {
     local status=$(systemctl is-active fix.service)
     if [ "$status" == "active" ]; then
-        echo -e "${GREEN}✔ VPS Kentang is active.${NC}"
+        echo -e "${GREEN}✔ Fix Instances is active.${NC}"
     else
-        echo -e "${RED}✘ VPS Kentang is not active.${NC}"
+        echo -e "${RED}✘ Fix Instances is not active.${NC}"
     fi
 }
 
@@ -53,8 +53,8 @@ check_container_status
 # Cek status WARP
 check_warp_status
 
-# Cek status VPS Kentang service
-check_vps_kentang_status
+# Cek status Fix Instances service
+check_fix_instances_status
 
 # Garis bawah
 print_line
