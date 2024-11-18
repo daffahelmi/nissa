@@ -20,16 +20,13 @@ fi
 read -p "Enter your Telegram Chat ID: " CHAT_ID
 read -p "Enter your Telegram Bot Token: " BOT_TOKEN
 
-# Verifikasi Bot Token dan Chat ID
-TEST_MESSAGE="Testing Bot Token and Chat ID..."
-TEST_RESULT=$(curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
-  -d chat_id="${CHAT_ID}" \
-  -d text="${TEST_MESSAGE}")
+# Verifikasi Bot Token dan Chat ID dengan memeriksa API
+TEST_RESULT=$(curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getMe")
 
 if [[ $(echo "$TEST_RESULT" | grep '"ok":true') ]]; then
-  echo "Bot Token dan Chat ID valid."
+  echo "Bot Token valid. Melanjutkan..."
 else
-  echo "Bot Token atau Chat ID salah. Proses dibatalkan."
+  echo "Bot Token salah. Proses dibatalkan."
   exit 1
 fi
 
