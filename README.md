@@ -1,6 +1,6 @@
 Installer
 ```bash
-apt install wget -y && wget https://raw.githubusercontent.com/daffahelmi/marzdaf/main/marzdaf.sh && chmod +x marzdaf.sh && ./marzdaf.sh
+apt-get install curl sudo wget -y && wget https://raw.githubusercontent.com/daffahelmi/marzdaf/main/marzdaf.sh && chmod +x marzdaf.sh && ./marzdaf.sh
 ```
 Buat admin login
 ```bash
