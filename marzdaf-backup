@@ -20,6 +20,19 @@ fi
 read -p "Enter your Telegram Chat ID: " CHAT_ID
 read -p "Enter your Telegram Bot Token: " BOT_TOKEN
 
+# Verifikasi Bot Token dan Chat ID
+TEST_MESSAGE="Testing Bot Token and Chat ID..."
+TEST_RESULT=$(curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+  -d chat_id="${CHAT_ID}" \
+  -d text="${TEST_MESSAGE}")
+
+if [[ $(echo "$TEST_RESULT" | grep '"ok":true') ]]; then
+  echo "Bot Token dan Chat ID valid."
+else
+  echo "Bot Token atau Chat ID salah. Proses dibatalkan."
+  exit 1
+fi
+
 # Prompt untuk input deskripsi custom backup
 read -p "Enter a custom description for this backup (leave blank for default): " BACKUP_DESCRIPTION
 if [ -z "$BACKUP_DESCRIPTION" ]; then
