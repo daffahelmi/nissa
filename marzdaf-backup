@@ -57,7 +57,7 @@ echo -e "$BACKUP_DESCRIPTION\n$PUBLIC_IP\nModified by @daffahelmis" | zip -z /ro
 
 # Unggah file backup ke Telegram
 curl -F chat_id="$CHAT_ID" \\
-     -F caption=\$'\n\n$BACKUP_DESCRIPTION\n<code>$PUBLIC_IP</code>\nModified by @daffahelmis' \\
+     -F caption=\$'\n\n<b>Backup Description:</b> \n$BACKUP_DESCRIPTION\n\n<b>Public IP:</b>\n<code>$PUBLIC_IP</code>\n\n<i>Modified by @daffahelmis</i>' \\
      -F parse_mode="HTML" \\
      -F document=@"/root/marzban-backup.zip" \\
      https://api.telegram.org/bot$BOT_TOKEN/sendDocument
