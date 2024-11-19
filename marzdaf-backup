@@ -35,6 +35,12 @@ if [ -z "$BACKUP_DESCRIPTION" ]; then
   BACKUP_DESCRIPTION="marzban backup"
 fi
 
+# Pilih mode backup
+echo "Pilih mode backup:"
+echo "1. Backup semua folder tanpa pengecualian"
+echo "2. Backup dengan pengecualian (sqlite only)"
+read -p "Masukkan pilihan Anda (1-2): " backup_choice
+
 # Buat skrip backup
 BACKUP_SCRIPT="/usr/local/bin/marzban-backup"
 cat <<EOF > $BACKUP_SCRIPT
@@ -43,9 +49,24 @@ cat <<EOF > $BACKUP_SCRIPT
 # Hapus file backup lama
 rm -rf /root/marzban-backup.zip
 
-# Buat file ZIP tanpa menyertakan folder /var/lib/marzban/assets dan /var/lib/marzban/xray-core
-zip -r /root/marzban-backup.zip /opt/marzban/* /var/lib/marzban/* /opt/marzban/.env --exclude "/var/lib/marzban/assets/*" "/var/lib/marzban/xray-core/*" "/var/lib/marzban/certs/*"
+EOF
 
+if [[ $backup_choice -eq 1 ]]; then
+  cat <<EOF >> $BACKUP_SCRIPT
+# Buat file ZIP untuk semua folder
+zip -r /root/marzban-backup.zip /opt/marzban/* /var/lib/marzban/* /opt/marzban/.env
+EOF
+elif [[ $backup_choice -eq 2 ]]; then
+  cat <<EOF >> $BACKUP_SCRIPT
+# Buat file ZIP dengan pengecualian folder tertentu
+zip -r /root/marzban-backup.zip /opt/marzban/* /var/lib/marzban/* /opt/marzban/.env --exclude "/var/lib/marzban/assets/*" "/var/lib/marzban/xray-core/*" "/var/lib/marzban/certs/*" "/var/lib/marzban/templates/*"
+EOF
+else
+  echo "Pilihan tidak valid. Membatalkan proses."
+  exit 1
+fi
+
+cat <<EOF >> $BACKUP_SCRIPT
 # Tambahkan catatan ke dalam file ZIP
 echo -e "$BACKUP_DESCRIPTION\n$PUBLIC_IP\nModified by @daffahelmis" | zip -z /root/marzban-backup.zip
 
