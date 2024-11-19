@@ -70,9 +70,6 @@ systemctl start docker
 # Swap RAM 1GB
 wget https://raw.githubusercontent.com/Cretezy/Swap/master/swap.sh -O swap && sh swap 1G && rm swap
 
-# Download db.sqlite3
-wget -O /var/lib/marzban/db.sqlite3 https://raw.githubusercontent.com/daffahelmi/marzdaf/main/db.sqlite3
-
 # Download xray_config.json
 wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/marzdaf/main/xray_config.json
 
