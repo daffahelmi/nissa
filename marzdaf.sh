@@ -1,8 +1,8 @@
 #!/bin/bash
-sfile="https://github.com/daffahelmi/marzdaf/blob/main"
+sfile="https://github.com/daffahelmi/nissa/blob/main"
 
 # Change Repo Id Debian 12
-wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/marzdaf/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
+wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/nissa/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
 
 # Input domain
 read -rp "Masukkan Domain: " domain
@@ -71,13 +71,13 @@ systemctl start docker
 wget https://raw.githubusercontent.com/Cretezy/Swap/master/swap.sh -O swap && sh swap 1G && rm swap
 
 # Download xray_config.json
-wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/marzdaf/main/xray_config.json
+wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/nissa/main/xray_config.json
 
 # Download .env
-wget -O /opt/marzban/.env https://raw.githubusercontent.com/daffahelmi/marzdaf/main/env
+wget -O /opt/marzban/.env https://raw.githubusercontent.com/daffahelmi/nissa/main/env
 
 # Download Subscription
-sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/daffahelmi/marzdaf/refs/heads/main/index.html
+sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/daffahelmi/nissa/main/index.html
 
 # Install Xray-Core Latest
 apt install -y wget unzip && \
@@ -88,18 +88,18 @@ unzip Xray-linux-64.zip && \
 rm Xray-linux-64.zip
 
 # Download Geositemod
-wget -O /root/geositemod https://raw.githubusercontent.com/daffahelmi/marzdaf/main/geositemod && chmod +x /root/geositemod && /root/geositemod && rm -f /root/geositemod
+wget -O /root/geositemod https://raw.githubusercontent.com/daffahelmi/nissa/main/geositemod && chmod +x /root/geositemod && /root/geositemod && rm -f /root/geositemod
 
 # Fix Marzban error log
-wget -O /usr/local/bin/fixmarzban https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fixnodeusage && \
-wget -O /etc/systemd/system/fix.service https://raw.githubusercontent.com/daffahelmi/marzdaf/main/fix.service && \
+wget -O /usr/local/bin/fixmarzban https://raw.githubusercontent.com/daffahelmi/nissa/main/fixnodeusage && \
+wget -O /etc/systemd/system/fix.service https://raw.githubusercontent.com/daffahelmi/nissa/main/fix.service && \
 chmod +x /usr/local/bin/fixmarzban && \
 systemctl enable fix.service && \
 systemctl start fix.service
 
 # Install cek service
-wget -O /root/.bash_profile https://raw.githubusercontent.com/daffahelmi/marzdaf/main/profile && \
-wget -O /usr/bin/cek https://raw.githubusercontent.com/daffahelmi/marzdaf/main/cek && \
+wget -O /root/.bash_profile https://raw.githubusercontent.com/daffahelmi/nissa/main/profile && \
+wget -O /usr/bin/cek https://raw.githubusercontent.com/daffahelmi/nissa/main/cek && \
 chmod +x /usr/bin/cek
 
 # Install WARP Proxy
