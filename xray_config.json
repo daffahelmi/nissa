@@ -22,12 +22,6 @@
       },
       {
         "type": "field",
-        "port": 443,
-        "network": "udp",
-        "outboundTag": "BLOCK"
-      },
-      {
-        "type": "field",
         "domain": [
           "geosite:rule-ads"
         ],
