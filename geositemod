@@ -3,7 +3,10 @@
 # Mendapatkan URL GeoSite.dat dari latest release
 geosite_url=$(curl -s https://api.github.com/repos/rfxcll/v2ray-rules-dat/releases/latest | jq -r '.assets[] | select(.name=="GeoSite.dat") | .browser_download_url')
 
-# Jika URL ditemukan, unduh file GeoSite.dat
+# Mendapatkan URL GeoIP.dat dari latest release
+geoip_url=$(curl -s https://api.github.com/repos/rfxcll/v2ray-rules-dat/releases/latest | jq -r '.assets[] | select(.name=="GeoIP.dat") | .browser_download_url')
+
+# Mengecek dan mengunduh GeoSite.dat
 if [ -n "$geosite_url" ]; then
     echo "Mengecek apakah direktori tujuan ada..."
     
@@ -17,8 +20,23 @@ if [ -n "$geosite_url" ]; then
     if [ $? -eq 0 ]; then
         echo "Download selesai: /var/lib/marzban/assets/geosite.dat"
     else
-        echo "Terjadi kesalahan saat mengunduh file."
+        echo "Terjadi kesalahan saat mengunduh GeoSite.dat."
     fi
 else
     echo "GeoSite.dat tidak ditemukan dalam release terbaru"
+fi
+
+# Mengecek dan mengunduh GeoIP.dat
+if [ -n "$geoip_url" ]; then
+    echo "Mengunduh GeoIP.dat..."
+    wget -O /var/lib/marzban/assets/geoip.dat "$geoip_url"
+    
+    # Memeriksa apakah pengunduhan berhasil
+    if [ $? -eq 0 ]; then
+        echo "Download selesai: /var/lib/marzban/assets/geoip.dat"
+    else
+        echo "Terjadi kesalahan saat mengunduh GeoIP.dat."
+    fi
+else
+    echo "GeoIP.dat tidak ditemukan dalam release terbaru"
 fi
