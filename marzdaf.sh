@@ -57,12 +57,11 @@ apt install iptables cron socat -y
 
 # Install SSL cert
 sudo mkdir -p /var/lib/marzban/certs/ && \
-systemctl stop docker && \
+marzban down && \
 curl https://get.acme.sh | sh && \
 ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --standalone -d $domain \
 --key-file /var/lib/marzban/certs/key.pem \
 --fullchain-file /var/lib/marzban/certs/fullchain.pem && \
-systemctl start docker
 
 # cronjob setup
 (crontab -l 2>/dev/null; echo "0 */6 * * * sync; echo 3 > /proc/sys/vm/drop_caches"; echo "0 */3 * * * systemctl restart wireproxy") | crontab -
