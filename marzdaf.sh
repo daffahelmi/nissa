@@ -78,6 +78,9 @@ wget -O /opt/marzban/.env https://raw.githubusercontent.com/daffahelmi/nissa/mai
 # Download Subscription
 sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/daffahelmi/nissa/main/index.html
 
+#Download sqlite3
+wget -O /var/lib/marzban/db.sqlite3 https://raw.githubusercontent.com/daffahelmi/nissa/main/db.sqlite3
+
 # Install Xray-Core Latest
 apt install -y wget unzip && \
 mkdir -p /var/lib/marzban/xray-core && \
