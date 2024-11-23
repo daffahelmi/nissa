@@ -104,8 +104,16 @@ wget -O /root/.bash_profile https://raw.githubusercontent.com/daffahelmi/nissa/m
 wget -O /usr/bin/cek https://raw.githubusercontent.com/daffahelmi/nissa/main/cek && \
 chmod +x /usr/bin/cek
 
-# Install WARP Proxy
-bash <(curl -sSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh) -y
+# Optional: Install WARP Proxy
+echo -e "\nApakah Anda ingin menginstal WARP Proxy? (y/n) [Timeout 10 detik, default: y]"
+read -t 10 -p "Pilih [y/n]: " warp_choice
+warp_choice=${warp_choice:-y}
+
+if [[ "$warp_choice" == "y" ]]; then
+  bash <(curl -sSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh) -y
+else
+  echo "WARP Proxy tidak diinstal."
+fi
 
 # Finalizing
 apt autoremove -y && apt clean
