@@ -105,8 +105,8 @@ wget -O /usr/bin/cek https://raw.githubusercontent.com/daffahelmi/nissa/main/cek
 chmod +x /usr/bin/cek
 
 # Optional: Install WARP Proxy
-echo -e "\nApakah Anda ingin menginstal WARP Proxy? (y/n) [Timeout 10 detik, default: y]"
-read -t 10 -p "Pilih [y/n]: " warp_choice
+echo -e "\nApakah Anda ingin menginstal WARP Proxy? (y/n) [Timeout 5 detik, default: y]"
+read -t 5 -p "Pilih [y/n]: " warp_choice
 warp_choice=${warp_choice:-y}
 
 if [[ "$warp_choice" == "y" ]]; then
