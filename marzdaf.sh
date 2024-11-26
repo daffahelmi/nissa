@@ -66,9 +66,6 @@ curl https://get.acme.sh | sh && \
 # cronjob setup
 (crontab -l 2>/dev/null; echo "0 */6 * * * sync; echo 3 > /proc/sys/vm/drop_caches"; echo "0 */3 * * * systemctl restart wireproxy") | crontab -
 
-# Swap RAM 1GB
-wget https://raw.githubusercontent.com/Cretezy/Swap/master/swap.sh -O swap && sh swap 1G && rm swap
-
 # Download xray_config.json
 wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/nissa/main/xray_config.json
 
