@@ -57,7 +57,6 @@ apt install iptables cron socat -y
 
 # Install SSL cert
 sudo mkdir -p /var/lib/marzban/certs/ && \
-marzban down && \
 curl https://get.acme.sh | sh && \
 ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --standalone -d $domain \
 --key-file /var/lib/marzban/certs/key.pem \
