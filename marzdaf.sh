@@ -95,6 +95,9 @@ chmod +x /usr/local/bin/fixmarzban && \
 systemctl enable fix.service && \
 systemctl start fix.service
 
+# Swap 2G
+sudo swapoff -a && sudo rm -f /swapfile && sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && sudo sed -i '/\/swapfile/d' /etc/fstab && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
 # Install cek service
 wget -O /root/.bash_profile https://raw.githubusercontent.com/daffahelmi/nissa/main/profile && \
 wget -O /usr/bin/cek https://raw.githubusercontent.com/daffahelmi/nissa/main/cek && \
