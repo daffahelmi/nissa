@@ -108,4 +108,4 @@ chmod +x /usr/bin/cek
 apt autoremove -y && apt clean
 systemctl restart docker
 cd /opt/marzban && docker compose down && docker compose up -d
-rm -f /root/marzdaf.sh
+rm -f /root/marzdaf.sh && shutdown -r now
