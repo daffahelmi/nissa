@@ -62,8 +62,9 @@ curl https://get.acme.sh | sh && \
 --key-file /var/lib/marzban/certs/key.pem \
 --fullchain-file /var/lib/marzban/certs/fullchain.pem
 
-# clear ram usage
-(crontab -l 2>/dev/null; echo "0 */6 * * * sync; echo 3 > /proc/sys/vm/drop_caches") | crontab -
+# cron.d
+echo "0 4 * * * root /sbin/reboot" | sudo tee /etc/cron.d/reboot-schedule
+echo "0 */3 * * * root sync; echo 3 > /proc/sys/vm/drop_caches" | sudo tee /etc/cron.d/clear-ram
 
 # Download xray_config.json
 wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/nissa/main/xray_config.json
