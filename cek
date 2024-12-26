@@ -37,15 +37,15 @@ check_fix_instances_status() {
 
 # Fungsi untuk mengecek penggunaan data tahunan dengan vnstat
 check_vnstat_usage() {
-    echo -e "${BLUE}RX Data Usage (vnStat):${NC}"
+    echo -e "${BLUE}Annual RX Data Usage (vnStat):${NC}"
     if ! command -v vnstat &> /dev/null; then
         echo -e "  ${RED}✘ vnStat is not installed. Please install vnstat.${NC}"
     else
-        # Menampilkan hanya data RX
-        vnstat --oneline | awk -F';' -v GREEN="$GREEN" -v NC="$NC" '{ 
-            rx_usage=$3; 
-            rx_unit=$4; 
-            printf "  %sRX Data: %s %s\n", GREEN, rx_usage, rx_unit;
+        # Menampilkan hanya data RX tahunan
+        vnstat -y | grep "rx" | awk -v GREEN="$GREEN" -v NC="$NC" '{ 
+            rx_usage=$2; 
+            rx_unit=$3; 
+            printf "  %sRX Data (Annual): %s %s\n", GREEN, rx_usage, rx_unit;
         }'
     fi
 }
