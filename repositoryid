@@ -14,16 +14,30 @@ fi
 ip_public=$(curl -s ifconfig.me)
 ip_location=$(curl -s https://ipinfo.io/$ip_public/country)
 
-# Repository lokal Indonesia
-repo_content="deb http://kartolo.sby.datautama.net.id/debian/ bookworm contrib main non-free non-free-firmware
+# Repository lokal Indonesia untuk Debian 11 dan 12
+repo_bullseye="deb http://kartolo.sby.datautama.net.id/debian bullseye main contrib non-free
+deb http://kartolo.sby.datautama.net.id/debian bullseye-updates main contrib non-free
+deb http://kartolo.sby.datautama.net.id/debian-security bullseye-security main contrib non-free"
+
+repo_bookworm="deb http://kartolo.sby.datautama.net.id/debian/ bookworm contrib main non-free non-free-firmware
 deb http://kartolo.sby.datautama.net.id/debian/ bookworm-updates contrib main non-free non-free-firmware
 deb http://kartolo.sby.datautama.net.id/debian/ bookworm-proposed-updates contrib main non-free non-free-firmware
 deb http://kartolo.sby.datautama.net.id/debian/ bookworm-backports contrib main non-free non-free-firmware
 deb http://kartolo.sby.datautama.net.id/debian-security/ bookworm-security contrib main non-free non-free-firmware"
 
-# Validasi OS dan lokasi IP
-if [[ "$os_name" == "debian" && "$os_version" == "12" && "$ip_location" == "ID" ]]; then
-    echo "OS terdeteksi: Debian 12 (Bookworm)"
+# Validasi OS, versi, dan lokasi IP
+if [[ "$os_name" == "debian" && "$ip_location" == "ID" ]]; then
+    if [[ "$os_version" == "11" ]]; then
+        echo "OS terdeteksi: Debian 11 (Bullseye)"
+        repo_content=$repo_bullseye
+    elif [[ "$os_version" == "12" ]]; then
+        echo "OS terdeteksi: Debian 12 (Bookworm)"
+        repo_content=$repo_bookworm
+    else
+        echo "Versi Debian ($os_version) tidak didukung oleh script ini."
+        exit 1
+    fi
+
     echo "IP publik terdeteksi berasal dari Indonesia ($ip_public)"
     echo "Mengganti repository ke repository lokal Indonesia..."
 
@@ -41,5 +55,5 @@ if [[ "$os_name" == "debian" && "$os_version" == "12" && "$ip_location" == "ID" 
         mv /etc/apt/sources.list.backup /etc/apt/sources.list
     fi
 else
-    echo "OS bukan Debian 12 atau IP publik ($ip_public) tidak terdeteksi sebagai IP Indonesia. Tidak ada perubahan yang dilakukan."
+    echo "OS bukan Debian 11/12 atau IP publik ($ip_public) tidak terdeteksi sebagai IP Indonesia. Tidak ada perubahan yang dilakukan."
 fi
