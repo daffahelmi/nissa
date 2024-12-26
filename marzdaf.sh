@@ -1,7 +1,7 @@
 #!/bin/bash
 sfile="https://github.com/daffahelmi/nissa/blob/main"
 
-# Change Repo Id Debian 12
+# Change Repo Id Debian 11/12
 wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/nissa/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
 
 # Input domain
@@ -12,7 +12,7 @@ domain=$(cat /root/domain)
 # Install toolkit
 apt-get update
 timedatectl set-timezone Asia/Jakarta && \
-apt-get install net-tools lnav haveged htop vnstat gpg neofetch jq -y
+apt-get install net-tools sqlite3 haveged htop vnstat gpg neofetch jq -y
 
 # Preparation
 clear
@@ -65,6 +65,7 @@ curl https://get.acme.sh | sh && \
 # cron.d
 echo "0 4 * * * root /sbin/reboot" | sudo tee /etc/cron.d/reboot-schedule
 echo "0 */3 * * * root sync; echo 3 > /proc/sys/vm/drop_caches" | sudo tee /etc/cron.d/clear-ram
+echo "0 0 * * 0 root /usr/bin/sqlite3 /var/lib/marzban/db.sqlite3 \"VACUUM;\"" | sudo tee /etc/cron.d/sqlite_vacuum
 
 # Download xray_config.json
 wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/nissa/main/xray_config.json
