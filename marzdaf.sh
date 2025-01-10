@@ -65,7 +65,7 @@ curl https://get.acme.sh | sh && \
 # cron.d
 echo "0 4 * * * root /sbin/reboot" | sudo tee /etc/cron.d/reboot-schedule
 echo "0 */3 * * * root sync; echo 3 > /proc/sys/vm/drop_caches" | sudo tee /etc/cron.d/clear-ram
-echo "0 0 * * 0 root /usr/bin/sqlite3 /var/lib/marzban/db.sqlite3 \"VACUUM;\"" | sudo tee /etc/cron.d/sqlite_vacuum
+echo "0 0 1 * * root /usr/bin/sqlite3 /var/lib/marzban/db.sqlite3 \"VACUUM;\"" | sudo tee /etc/cron.d/sqlite_vacuum
 
 # Download xray_config.json
 wget -O /var/lib/marzban/xray_config.json https://raw.githubusercontent.com/daffahelmi/nissa/main/xray_config.json
