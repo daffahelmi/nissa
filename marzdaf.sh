@@ -79,11 +79,11 @@ sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubuser
 # Download Sqlite3
 wget -O /var/lib/marzban/db.sqlite3 https://raw.githubusercontent.com/daffahelmi/nissa/main/db.sqlite3
 
-# Install Xray-Core Latest
+# Install Xray-Core 1.8.24
 apt install -y wget unzip && \
 mkdir -p /var/lib/marzban/xray-core && \
 cd /var/lib/marzban/xray-core && \
-wget https://github.com/XTLS/xray-core/releases/latest/download/Xray-linux-64.zip && \
+wget https://github.com/XTLS/xray-core/releases/download/v1.8.24/Xray-linux-64.zip && \
 unzip Xray-linux-64.zip && \
 rm Xray-linux-64.zip
 
