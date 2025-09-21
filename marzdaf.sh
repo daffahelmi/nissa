@@ -106,7 +106,6 @@ wget -O /usr/bin/cek https://raw.githubusercontent.com/daffahelmi/nissa/main/cek
 chmod +x /usr/bin/cek
 
 # Finalizing
-apt autoremove -y && apt clean
 systemctl restart docker
 cd /opt/marzban && docker compose down && docker compose up -d
 rm -f /root/marzdaf.sh && shutdown -r now
