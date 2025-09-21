@@ -12,7 +12,7 @@ domain=$(cat /root/domain)
 # Install toolkit
 apt-get update
 timedatectl set-timezone Asia/Jakarta && \
-apt-get install net-tools sqlite3 haveged htop vnstat gpg neofetch jq -y
+apt-get install net-tools sqlite3 haveged htop vnstat gpg fastfecth jq -y
 
 # Preparation
 clear
