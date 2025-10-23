@@ -1,3 +1,3 @@
 clear
-fastfetch 
+neofetch 
 /usr/bin/cek
