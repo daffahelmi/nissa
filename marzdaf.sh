@@ -2,7 +2,7 @@
 sfile="https://github.com/daffahelmi/nissa/blob/main"
 
 # Change Repo Id Debian 11/12
-wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/nissa/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
+# wget -O /root/repoid https://raw.githubusercontent.com/daffahelmi/nissa/main/repositoryid && chmod +x /root/repoid && /root/repoid && rm -f /root/repoid
 
 # Input domain
 read -rp "Masukkan Domain: " domain
